@@ -1,7 +1,27 @@
 import mysql.connector
+from mysql.connector import Error
+
+
+
+
 
 def get_connection():
-    pass
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            database='inventory_db',
+            user='root',
+            password='Xfg1jlk..'
+        )
+        if connection.is_connected():
+            print("Successfully connected to Database!")
+            return connection
+    except Error as e:
+        print(f"Error while connecting to MySQL: {e}")
+        return None
+
+
+
 
 def add_product(name: str, category: str, quantity: int, price: float) -> None:
     pass
