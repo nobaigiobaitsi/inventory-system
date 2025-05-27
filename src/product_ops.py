@@ -72,8 +72,36 @@ def update_stock(product_id, delta):
             connection.close()
 
 
-def view_inventory() -> list[dict]:
-    pass
+def view_inventory():
+    connection = get_connection()
+    if not connection:
+        print("Failed to connect to the database.")
+        return
+
+    try:
+        cursor = connection.cursor()
+        cursor.execute(
+            "SELECT id, name, category, quantity, price, added_on, last_updated FROM products"
+        )
+        rows = cursor.fetchall()
+
+        if rows:
+            print(
+                f"{'ID':<5}{'Name':<25}{'Category':<15}{'Qty':<8}{'Price':<10}{'Added On':<20}{'Last Updated'}"
+            )
+            print("-" * 95)
+            for row in rows:
+                print(
+                    f"{row[0]:<5}{row[1]:<25}{row[2]:<15}{row[3]:<8}{row[4]:<10}{row[5]:<20}{row[6]}"
+                )
+        else:
+            print("Inventory is empty.")
+
+    except Exception as e:
+        print(f"Error retrieving inventory: {e}")
+    finally:
+        cursor.close()
+        connection.close()
 
 
 def remove_product(product_id: int) -> None:
