@@ -105,4 +105,29 @@ def view_inventory():
 
 
 def remove_product(product_id: int) -> None:
-    pass
+    connection = get_connection()
+    if not connection:
+        print("Failed to connect to the database.")
+        return
+
+    try:
+        cursor = connection.cursor()
+
+        # Check if the product exists
+        cursor.execute("SELECT * FROM products WHERE id = %s", (product_id,))
+        product = cursor.fetchone()
+
+        if not product:
+            print(f"No product found with ID {product_id}.")
+            return
+
+        # Delete the product
+        cursor.execute("DELETE FROM products WHERE id = %s", (product_id,))
+        connection.commit()
+        print(f"Product with ID {product_id} removed successfully.")
+
+    except Exception as e:
+        print(f"Error removing product: {e}")
+    finally:
+        cursor.close()
+        connection.close()
