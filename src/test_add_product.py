@@ -1,4 +1,4 @@
-from database import add_product
+from product_ops import add_product
 
 
-add_product("Wireless Mouse", "Electronics", 10, 15.99)
+add_product("Hard Drive v.01.00", "Electronics", 13, 59.99)
