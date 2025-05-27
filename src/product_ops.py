@@ -2,7 +2,7 @@ from mysql.connector import Error
 from database import get_connection
 
 
-def add_product(name: str, category: str, quantity: int, price: float) -> None:
+def add_product(name: str, category: str, quantity: int, price: float):
     if quantity < 0:
         raise ValueError("Quantity cannot be negative.")
     if price <= 0:
@@ -104,7 +104,7 @@ def view_inventory():
         connection.close()
 
 
-def remove_product(product_id: int) -> None:
+def remove_product(product_id):
     connection = get_connection()
     if not connection:
         print("Failed to connect to the database.")
