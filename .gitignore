@@ -1,11 +1,41 @@
-src/.env
-
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
+*.py[cod]
+*.so
 
+# Virtual environment
 venv/
 env/
 
+# Environment variables and secrets
+.env
+
+# MySQL dump or backup files (optional — keep if you want them in Git)
+*.sql~
+*.sql.bak
+
+# Logs and temp files
 *.log
 *.tmp
 *.bak
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
+
+# IDE/editor configs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Test caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter (if ever used)
+.ipynb_checkpoints/
+
+# macOS system files (if any)
+._*
