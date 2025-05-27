@@ -1,1 +1,11 @@
 src/.env
+
+__pycache__/
+*.pyc
+
+venv/
+env/
+
+*.log
+*.tmp
+*.bak
