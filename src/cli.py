@@ -21,7 +21,8 @@ def cli():
 def add(name, category, quantity, price):
     """Add a new product."""
     try:
-        cmd_add_product(name, category, quantity, price)
+        message = cmd_add_product(name, category, quantity, price)
+        click.echo(message)
     except ValueError as ve:
         click.echo(f"Validation Error: {ve}")
     except Exception as e:
@@ -36,8 +37,14 @@ def view():
         if not inventory:
             click.echo("Inventory is empty.")
             return
-        for product in inventory:
-            click.echo(product)
+        click.echo(
+            f"{'ID':<5}{'Name':<25}{'Category':<15}{'Qty':<8}{'Price':<10}{'Added On':<20}{'Last Updated'}"
+        )
+        click.echo("-" * 95)
+        for row in inventory:
+            click.echo(
+                f"{row[0]:<5}{row[1]:<25}{row[2]:<15}{row[3]:<8}{row[4]:<10}{row[5]:<20}{row[6]}"
+            )
     except Exception as e:
         click.echo(f"Error retrieving inventory: {e}")
 
@@ -48,8 +55,8 @@ def view():
 def update_stock(product_id, delta):
     """Update stock quantity for a product by delta."""
     try:
-        cmd_update_stock(product_id, delta)
-        click.echo(f"Stock for product ID {product_id} updated by {delta}.")
+        message = cmd_update_stock(product_id, delta)
+        click.echo(message)
     except ValueError as ve:
         click.echo(f"Validation Error: {ve}")
     except Exception as e:
@@ -65,8 +72,8 @@ def remove(product_id):
     )
     if confirm:
         try:
-            cmd_remove_product(product_id)
-            click.echo(f"Product ID {product_id} removed.")
+            message = cmd_remove_product(product_id)
+            click.echo(message)
         except Exception as e:
             click.echo(f"Error removing product: {e}")
     else:
