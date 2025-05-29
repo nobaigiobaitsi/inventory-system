@@ -1,9 +1,14 @@
 import mysql.connector
 from mysql.connector import Error
 from dotenv import load_dotenv
+import logging
 import os
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
+
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 
 def get_connection():
@@ -15,8 +20,8 @@ def get_connection():
             password=os.getenv("DB_PASSWORD"),
         )
         if connection.is_connected():
-            print("Successfully connected to Database!")
+            logging.info("Successfully connected to Database!")
             return connection
     except Error as e:
-        print(f"Error while connecting to MySQL: {e}")
+        logging.error(f"Error while connecting to MySQL: {e}")
         return None
